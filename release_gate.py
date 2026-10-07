@@ -2,12 +2,12 @@ MAX_FAILURE_RATE = 0.05
 
 
 def should_deploy(failed_checks, total_checks, max_failure_rate=MAX_FAILURE_RATE):
+    if total_checks <= 0:
+        raise ValueError("total_checks must be greater than zero")
+
     failure_rate = failed_checks / total_checks
     return failure_rate <= max_failure_rate
 
-#The MAX_FAILURE_RATE constant stores the configured release limit as the decimal fraction 0.05.
-#The failure_percent variable converts the failed-check ratio into percentage points.
-#The should_deploy() function compares the calculated value with the configured limit.
 
 def describe_decision(failed_checks, total_checks):
     failure_rate = failed_checks / total_checks
